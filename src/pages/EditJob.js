@@ -21,7 +21,7 @@ const EditJob = () => {
                                     </label>
                                     <select
                                         id="lws-JobTitle"
-                                        name="lwsJobTitle"
+                                        name="title"
                                         required
                                     >
                                         <option value="" hidden selected>
@@ -50,7 +50,7 @@ const EditJob = () => {
                                     </label>
                                     <select
                                         id="lws-JobType"
-                                        name="lwsJobType"
+                                        name="type"
                                         required
                                     >
                                         <option value="" hidden selected>
@@ -70,7 +70,7 @@ const EditJob = () => {
                                         <span className="input-tag">BDT</span>
                                         <input
                                             type="number"
-                                            name="lwsJobSalary"
+                                            name="salary"
                                             id="lws-JobSalary"
                                             required
                                             className="!rounded-l-none !border-0"
@@ -85,7 +85,7 @@ const EditJob = () => {
                                     </label>
                                     <input
                                         type="date"
-                                        name="lwsJobDeadline"
+                                        name="deadline"
                                         id="lws-JobDeadline"
                                         required
                                     />

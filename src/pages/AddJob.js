@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addJobThunk } from "../features/jobs/jobSlice";
 
 const AddJob = () => {
+    const dispatch = useDispatch();
+    const { isLoading } = useSelector((state) => state.job);
+
+    const [jobData, setJobData] = useState();
+    const submitJobData = (e) => {
+        setJobData({
+            ...jobData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const submit = (event) => {
+        event.preventDefault();
+        dispatch(addJobThunk(jobData));
+        event.target.reset();
+    };
     return (
         <div>
             <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -11,7 +29,7 @@ const AddJob = () => {
                         </h1>
 
                         <div className="max-w-3xl mx-auto">
-                            <form className="space-y-6">
+                            <form onSubmit={submit} className="space-y-6">
                                 <div className="fieldContainer">
                                     <label
                                         htmlFor="lws-JobTitle"
@@ -20,8 +38,9 @@ const AddJob = () => {
                                         Job Title
                                     </label>
                                     <select
+                                        onChange={submitJobData}
                                         id="lws-JobTitle"
-                                        name="lwsJobTitle"
+                                        name="title"
                                         required
                                     >
                                         <option value="" hidden selected>
@@ -49,8 +68,9 @@ const AddJob = () => {
                                         Job Type
                                     </label>
                                     <select
+                                        onChange={submitJobData}
                                         id="lws-JobType"
-                                        name="lwsJobType"
+                                        name="type"
                                         required
                                     >
                                         <option value="" hidden selected>
@@ -69,8 +89,9 @@ const AddJob = () => {
                                     <div className="flex border rounded-md shadow-sm border-slate-600">
                                         <span className="input-tag">BDT</span>
                                         <input
+                                            onChange={submitJobData}
                                             type="number"
-                                            name="lwsJobSalary"
+                                            name="salary"
                                             id="lws-JobSalary"
                                             required
                                             className="!rounded-l-none !border-0"
@@ -84,8 +105,9 @@ const AddJob = () => {
                                         Deadline
                                     </label>
                                     <input
+                                        onChange={submitJobData}
                                         type="date"
-                                        name="lwsJobDeadline"
+                                        name="deadline"
                                         id="lws-JobDeadline"
                                         required
                                     />
@@ -93,6 +115,7 @@ const AddJob = () => {
 
                                 <div className="text-right">
                                     <button
+                                        disabled={isLoading}
                                         type="submit"
                                         id="lws-submit"
                                         className="cursor-pointer btn btn-primary w-fit"
