@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addJob, getJobs } from "./jobApi";
+import { addJob, deleteJob, getJobs } from "./jobApi";
 
 const initialState = {
     jobs: [],
@@ -17,6 +17,14 @@ export const addJobThunk = createAsyncThunk("job/addJobData", async (data) => {
     const job = await addJob(data);
     return job;
 });
+
+export const deleteJobThunk = createAsyncThunk(
+    "/job/deleteJobData",
+    async (id) => {
+        const job = await deleteJob(id);
+        return job;
+    }
+);
 
 const jobSlice = createSlice({
     name: "job",
@@ -51,6 +59,25 @@ const jobSlice = createSlice({
                 state.jobs.push(action.payload);
             })
             .addCase(addJobThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.error?.message;
+            })
+
+            // delete job
+            .addCase(deleteJobThunk.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(deleteJobThunk.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+
+                state.jobs = state.jobs.filter(
+                    (job) => job.id !== action.meta.arg
+                );
+            })
+            .addCase(deleteJobThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.error?.message;

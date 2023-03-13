@@ -43,7 +43,7 @@ const AddJob = () => {
                                         name="title"
                                         required
                                     >
-                                        <option value="" hidden selected>
+                                        <option value="" hidden defaultValue>
                                             Select Job
                                         </option>
                                         <option>Software Engineer</option>
@@ -73,7 +73,7 @@ const AddJob = () => {
                                         name="type"
                                         required
                                     >
-                                        <option value="" hidden selected>
+                                        <option value="" hidden defaultValue>
                                             Select Job Type
                                         </option>
                                         <option>Full Time</option>

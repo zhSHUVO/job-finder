@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteJobThunk } from "../../features/jobs/jobSlice";
 
 const AvailableJobsItem = ({ job }) => {
+    const dispatch = useDispatch();
     const { id, title, type, salary, deadline } = job;
 
     let text;
@@ -45,6 +48,9 @@ const AvailableJobsItem = ({ job }) => {
 
                 <span className="sm:ml-3">
                     <button
+                        onClick={() => {
+                            dispatch(deleteJobThunk(id));
+                        }}
                         type="button"
                         className="lws-delete btn btn-danger "
                     >
