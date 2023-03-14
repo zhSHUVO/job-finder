@@ -5,7 +5,7 @@ import AvailableJobsItem from "./AvailableJobsItem";
 
 const AvailableJobs = () => {
     const dispatch = useDispatch();
-    const { filter } = useSelector((state) => state.filter);
+    const { filter, sort, search } = useSelector((state) => state.filter);
     const { jobs, isLoading, isError, error } = useSelector(
         (state) => state.job
     );
@@ -25,7 +25,14 @@ const AvailableJobs = () => {
                 .filter((job) => job.type === filter)
                 .map((job) => <AvailableJobsItem key={job.id} job={job} />);
         }
-        if (!filter) {
+        if (search) {
+            content = jobs
+                .filter((job) =>
+                    job.title.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((job) => <AvailableJobsItem key={job.id} job={job} />);
+        }
+        if (!filter && !search) {
             content = jobs.map((job) => (
                 <AvailableJobsItem key={job.id} job={job} />
             ));
