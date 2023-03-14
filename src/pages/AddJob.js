@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addJobThunk } from "../features/jobs/jobSlice";
 
 const AddJob = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isLoading } = useSelector((state) => state.job);
 
     const [jobData, setJobData] = useState();
@@ -17,7 +19,7 @@ const AddJob = () => {
     const submit = (e) => {
         e.preventDefault();
         dispatch(addJobThunk(jobData));
-        e.target.reset();
+        navigate("/");
     };
     return (
         <div>
