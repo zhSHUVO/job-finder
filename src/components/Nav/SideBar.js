@@ -1,13 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectedFilter } from "../../features/filters/filterSlice";
 
 const SideBar = () => {
+    const dispatch = useDispatch();
     return (
         <div className="sidebar">
             <ul className="space-y-4">
                 <li>
                     <Link
                         to={"/"}
+                        onClick={() => dispatch(selectedFilter(""))}
                         className="main-menu menu-active"
                         id="lws-alljobs-menu"
                     >
@@ -16,34 +20,40 @@ const SideBar = () => {
                     </Link>
                     <ul className="space-y-6 lg:space-y-2 ">
                         <li>
-                            <a
+                            <button
+                                onClick={() =>
+                                    dispatch(selectedFilter("Internship"))
+                                }
                                 className="sub-menu"
-                                href="/jobs/internship"
                                 id="lws-internship-menu"
                             >
                                 <i className="fa-solid fa-stop !text-[#FF5757]"></i>
                                 Internship
-                            </a>
+                            </button>
                         </li>
                         <li>
-                            <a
+                            <button
+                                onClick={() =>
+                                    dispatch(selectedFilter("Full Time"))
+                                }
                                 className="sub-menu"
-                                href="/jobs/fulltime"
                                 id="lws-fulltime-menu"
                             >
                                 <i className="fa-solid fa-stop !text-[#FF8A00]"></i>
                                 Full Time
-                            </a>
+                            </button>
                         </li>
                         <li>
-                            <a
+                            <button
+                                onClick={() =>
+                                    dispatch(selectedFilter("Remote"))
+                                }
                                 className="sub-menu"
-                                href="/jobs/remote"
                                 id="lws-remote-menu"
                             >
                                 <i className="fa-solid fa-stop !text-[#56E5C4]"></i>
                                 Remote
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </li>

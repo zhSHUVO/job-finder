@@ -5,6 +5,7 @@ import AvailableJobsItem from "./AvailableJobsItem";
 
 const AvailableJobs = () => {
     const dispatch = useDispatch();
+    const { filter } = useSelector((state) => state.filter);
     const { jobs, isLoading, isError, error } = useSelector(
         (state) => state.job
     );
@@ -19,9 +20,16 @@ const AvailableJobs = () => {
         content = <div>No job was found!</div>;
 
     if (!isLoading && !isError && jobs?.length > 0) {
-        content = jobs.map((job) => (
-            <AvailableJobsItem key={job.id} job={job} />
-        ));
+        if (filter) {
+            content = jobs
+                .filter((job) => job.type === filter)
+                .map((job) => <AvailableJobsItem key={job.id} job={job} />);
+        }
+        if (!filter) {
+            content = jobs.map((job) => (
+                <AvailableJobsItem key={job.id} job={job} />
+            ));
+        }
     }
 
     return (
