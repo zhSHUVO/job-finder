@@ -35,7 +35,7 @@ const AvailableJobsItem = ({ job }) => {
             </div>
             <div className="mt-5 flex lg:mt-0 lg:ml-4">
                 <span className="hidden sm:block">
-                    <Link to={`/edit/${id}`}>
+                    <Link to={`/update/${id}`}>
                         <button
                             type="button"
                             className="lws-edit btn btn-primary"

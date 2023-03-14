@@ -14,10 +14,10 @@ const AddJob = () => {
         });
     };
 
-    const submit = (event) => {
-        event.preventDefault();
+    const submit = (e) => {
+        e.preventDefault();
         dispatch(addJobThunk(jobData));
-        event.target.reset();
+        e.target.reset();
     };
     return (
         <div>

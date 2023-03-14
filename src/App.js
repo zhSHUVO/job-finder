@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/Nav/NavBar";
 import SideBar from "./components/Nav/SideBar";
 import AddJob from "./pages/AddJob";
-import EditJob from "./pages/EditJob";
 import Home from "./pages/Home";
+import UpdateJob from "./pages/UpdateJob";
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/add-job" element={<AddJob />} />
-                <Route path="/edit/:jobId" element={<EditJob />} />
+                <Route path="/update/:jobId" element={<UpdateJob />} />
             </Routes>
         </BrowserRouter>
     );

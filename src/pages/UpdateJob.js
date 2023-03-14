@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateJobThunk } from "../features/jobs/jobSlice";
 
-const EditJob = () => {
+const UpdateJob = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const param = useParams();
+    const id = param.jobId;
+    const { jobs } = useSelector((state) => state.job);
+    const currentJob = jobs.find((job) => job.id === parseInt(id));
+
+    const [updatedJobData, setUpdatedJobData] = useState();
+    const submitUpdatedJobData = (e) => {
+        setUpdatedJobData({
+            ...updatedJobData,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const submitUpdate = (e) => {
+        e.preventDefault();
+        dispatch(updateJobThunk({id, updatedJobData}));
+        navigate("/")
+
+    };
     return (
         <div>
             <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -11,7 +34,7 @@ const EditJob = () => {
                         </h1>
 
                         <div className="max-w-3xl mx-auto">
-                            <form className="space-y-6">
+                            <form onSubmit={submitUpdate} className="space-y-6">
                                 <div className="fieldContainer">
                                     <label
                                         htmlFor="lws-JobTitle"
@@ -20,11 +43,13 @@ const EditJob = () => {
                                         Job Title
                                     </label>
                                     <select
+                                        onChange={submitUpdatedJobData}
+                                        defaultValue={currentJob?.title}
                                         id="lws-JobTitle"
                                         name="title"
                                         required
                                     >
-                                        <option value="" hidden selected>
+                                        <option value="" hidden defaultValue>
                                             Select Job
                                         </option>
                                         <option>Software Engineer</option>
@@ -49,11 +74,13 @@ const EditJob = () => {
                                         Job Type
                                     </label>
                                     <select
+                                        onChange={submitUpdatedJobData}
+                                        defaultValue={currentJob?.type}
                                         id="lws-JobType"
                                         name="type"
                                         required
                                     >
-                                        <option value="" hidden selected>
+                                        <option value="" hidden defaultValue>
                                             Select Job Type
                                         </option>
                                         <option>Full Time</option>
@@ -69,6 +96,8 @@ const EditJob = () => {
                                     <div className="flex border rounded-md shadow-sm border-slate-600">
                                         <span className="input-tag">BDT</span>
                                         <input
+                                            onChange={submitUpdatedJobData}
+                                            defaultValue={currentJob?.salary}
                                             type="number"
                                             name="salary"
                                             id="lws-JobSalary"
@@ -84,6 +113,8 @@ const EditJob = () => {
                                         Deadline
                                     </label>
                                     <input
+                                        onChange={submitUpdatedJobData}
+                                        defaultValue={currentJob?.deadline}
                                         type="date"
                                         name="deadline"
                                         id="lws-JobDeadline"
@@ -109,4 +140,4 @@ const EditJob = () => {
     );
 };
 
-export default EditJob;
+export default UpdateJob;

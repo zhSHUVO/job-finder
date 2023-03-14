@@ -14,3 +14,8 @@ export const deleteJob = async (id) => {
     const res = await axios.delete(`/jobs/${id}`);
     return res.data;
 };
+
+export const updateJob = async (id, job) => {
+    const res = await axios.patch(`/jobs/${id}`, job);
+    return res.data;
+};
