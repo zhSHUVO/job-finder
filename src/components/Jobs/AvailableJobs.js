@@ -39,6 +39,22 @@ const AvailableJobs = () => {
         }
     }
 
+    // sorting
+    if (!isLoading && !isError && jobs?.length > 0 && sort) {
+        if (sort === "Salary (Low to High)") {
+            content.sort(
+                (a, b) =>
+                    parseInt(a.props.job.salary) - parseInt(b.props.job.salary)
+            );
+        }
+        if (sort === "Salary (High to Low)") {
+            content.sort(
+                (a, b) =>
+                    parseInt(b.props.job.salary) - parseInt(a.props.job.salary)
+            );
+        }
+    }
+
     return (
         <main className="max-w-3xl rounded-lg  mx-auto relative z-20 p-10 xl:max-w-none bg-[#1E293B]">
             <div className="jobs-list">{content}</div>
